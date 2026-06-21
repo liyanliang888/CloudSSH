@@ -171,14 +171,11 @@ With GitHub OAuth enabled, users can log in with their GitHub account and save/m
    ```bash
    npx wrangler secret set GITHUB_CLIENT_SECRET
    # Paste your Client Secret
-
-   npx wrangler secret set SESSION_SECRET
-   # Enter a random string, generate one with: openssl rand -hex 32
    ```
 
 4. **Redeploy**: Run the deployment command to apply the configuration.
 
-> **Note**: Server credentials (passwords/private keys) are encrypted with AES-256-GCM before storage. During connection, credentials never pass through the frontend — they are securely transmitted via a one-time-token mechanism.
+> **Note**: Server credentials (passwords/private keys) are encrypted with AES-256-GCM before storage. The encryption key is automatically generated and safely stored in the database. During connection, credentials never pass through the frontend — they are securely transmitted via a one-time-token mechanism.
 
 > **Important**: Enabling this feature for the first time requires a clean deployment (delete the old Worker first, then redeploy) to initialize the new Durable Object. Use `npx wrangler delete cloudssh` to remove the old Worker, then run `npm run deploy` to redeploy.
 

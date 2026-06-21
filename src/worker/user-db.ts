@@ -25,6 +25,11 @@ export class UserDBDO {
 
   private initSchema(): void {
     this.db.exec(`
+      CREATE TABLE IF NOT EXISTS system_config (
+        key         TEXT PRIMARY KEY,
+        value       TEXT NOT NULL
+      );
+
       CREATE TABLE IF NOT EXISTS users (
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
         github_id   INTEGER UNIQUE NOT NULL,
@@ -433,7 +438,22 @@ export class UserDBDO {
   }
 
   private async deriveEncryptionKey(userId: number): Promise<CryptoKey> {
-    const secret = this.env.SESSION_SECRET || 'cloudssh-default-secret';
+    let secret = this.env.SESSION_SECRET;
+
+    // 如果环境变量未设置，则尝试从数据库读取自动生成的密钥，若没有则自动生成并保存
+    if (!secret) {
+      const rows = this.db.exec("SELECT value FROM system_config WHERE key = 'session_secret'").toArray();
+      if (rows.length > 0) {
+        secret = rows[0].value as string;
+      } else {
+        const bytes = new Uint8Array(32);
+        crypto.getRandomValues(bytes);
+        secret = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        this.db.exec("INSERT INTO system_config (key, value) VALUES ('session_secret', ?)", secret);
+        console.log('[UserDBDO] Auto-generated and stored a new SESSION_SECRET');
+      }
+    }
+
     const salt = new TextEncoder().encode(`cloudssh:userdb:${userId}`);
     const keyMaterial = await crypto.subtle.importKey(
       'raw',

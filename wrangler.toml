@@ -8,7 +8,6 @@ workers_dev = false
 # GitHub OAuth（可选，不配置则登录功能自动隐藏）
 # 创建 GitHub OAuth App 后，取消下方注释并填入你的 Client ID
 # Secret 通过 CLI 设置：npx wrangler secret set GITHUB_CLIENT_SECRET
-#                       npx wrangler secret set SESSION_SECRET
 # [vars]
 # GITHUB_CLIENT_ID = "your-github-oauth-client-id"
 # BASE_URL = "https://your-domain.com"

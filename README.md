@@ -171,14 +171,11 @@ flowchart TB
    ```bash
    npx wrangler secret set GITHUB_CLIENT_SECRET
    # 粘贴你的 Client Secret
-
-   npx wrangler secret set SESSION_SECRET
-   # 输入一个随机字符串，可通过以下命令生成：openssl rand -hex 32
    ```
 
 4. **重新部署**：运行部署命令使配置生效。
 
-> **说明**：服务器凭据（密码/私钥）在数据库中使用 AES-256-GCM 加密存储，且连接时凭据不经过前端，通过 one-time-token 机制安全传递。
+> **说明**：服务器凭据（密码/私钥）在数据库中使用 AES-256-GCM 加密存储，本地加密密钥将自动生成并安全地存储在数据库中。连接时凭据不经过前端，通过 one-time-token 机制安全传递。
 
 > **注意**：首次启用此功能需要从零部署（删除旧 Worker 后重新部署），因为需要初始化新的 Durable Object。可通过 `npx wrangler delete cloudssh` 删除旧 Worker，然后运行 `npm run deploy` 重新部署。
 
