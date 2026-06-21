@@ -31,6 +31,7 @@
 
 ![Demo 1](./demo1.png)
 ![Demo 2](./demo2.png)
+![Demo 3](./demo3.png)
 
 ## 目录
 
@@ -170,7 +171,7 @@ flowchart TB
 3. **设置 Secrets（敏感密钥）**：
    - 部署项目后，进入 Cloudflare Dashboard → 你的 Worker 项目 (`cloudssh`) → **Settings (设置)** → **Variables and Secrets (变量和机密)**。
    - 点击 **Add (添加)** 环境变量：
-     - **Type (类型)**：选择 **Secret (机密)** ⚠️（非常重要，不要选 Text）
+     - **Type (类型)**：选择 **Secret (机密)**（非常重要，不要选 Text）
      - **变量名**：`GITHUB_CLIENT_SECRET`
      - **值**：粘贴你获取到的 Client Secret
    - 随后点击 **Save and deploy (保存并部署)**。

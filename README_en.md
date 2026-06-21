@@ -31,6 +31,7 @@
 
 ![Demo 1](./demo1.png)
 ![Demo 2](./demo2.png)
+![Demo 3](./demo3.png)
 
 ## Table of Contents
 
@@ -170,7 +171,7 @@ With GitHub OAuth enabled, users can log in with their GitHub account and save/m
 3. **Set Secrets (Sensitive Information)**:
    - After deploying the project, go to Cloudflare Dashboard → your Worker project (`cloudssh`) → **Settings** → **Variables and Secrets**.
    - Click **Add** under Environment Variables:
-     - **Type**: Select **Secret** ⚠️ (Important: Do not select Text)
+     - **Type**: Select **Secret** (Important: Do not select Text)
      - **Variable name**: `GITHUB_CLIENT_SECRET`
      - **Value**: Paste your Client Secret
    - Click **Save and deploy**.
