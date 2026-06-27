@@ -1,0 +1,26 @@
+name: Auto Sync Upstream
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add upstream repository
+        run: git remote add upstream https://github.com/newbietan/CloudSSH.git
+
+      - name: Fetch upstream main branch
+        run: git fetch upstream main
+
+      - name: Reset local to upstream main
+        run: git reset --hard upstream/main
+
+      - name: Force push to your repository
+        run: git push --force origin main
